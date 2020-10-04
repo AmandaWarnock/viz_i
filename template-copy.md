@@ -19,6 +19,7 @@ library(tidyverse)
 
 ``` r
 library(ggridges)
+library(patchwork)
 ```
 
 ## Load weather data
@@ -328,3 +329,72 @@ weather_df %>%
 
 ![](template-copy_files/figure-gfm/unnamed-chunk-17-1.png)<!-- --> ^
 really helpful when you have a ton of categorical variables
+
+## Save and embed
+
+lets save a scatterplot
+
+``` r
+weather_plot = 
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) + 
+  geom_point(alpha = .5)
+
+ggsave("weather_plot.pdf", weather_plot, width = 8, height = 5)
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+^ can also add plots after the first quote
+
+What about embedding
+
+``` r
+weather_plot
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](template-copy_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+
+embed at different size
+
+``` r
+weather_plot
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](template-copy_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+
+# Data Viz 2
+
+## Remeber this plot?
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5)
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](template-copy_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+
+## Labesl
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5) +
+  labs(
+    title = "Temperature  plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017"
+  )
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](template-copy_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->

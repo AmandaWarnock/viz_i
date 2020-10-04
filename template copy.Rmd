@@ -8,6 +8,7 @@ output: github_document
 ```{r}
 library(tidyverse)
 library(ggridges)
+library(patchwork)
 ```
 
 ## Load weather data
@@ -182,6 +183,58 @@ weather_df %>%
   geom_density_ridges()
 ```
 ^ really helpful when you have a ton of categorical variables
+
+
+## Save and embed
+
+lets save a scatterplot
+
+```{r}
+weather_plot = 
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) + 
+  geom_point(alpha = .5)
+
+ggsave("weather_plot.pdf", weather_plot, width = 8, height = 5)
+```
+^ can also add plots after the first quote
+
+What about embedding
+
+```{r}
+weather_plot
+```
+
+embed at different size
+
+```{r, fig.width=12, fig.height=6}
+weather_plot
+```
+
+
+# Data Viz 2
+
+## Remeber this plot?
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5)
+```
+
+## Labesl
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5) +
+  labs(
+    title = "Temperature  plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017"
+  )
+```
 
 
 
